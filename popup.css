@@ -1,0 +1,123 @@
+/* popup.css */
+
+/* Variables are generally good, keep them */
+:root {
+  --bg-light: #ffffff;
+  --bg-dark: #1e1e1e;
+  --text-light: #000000;
+  --text-dark: #f5f5f5;
+  --button-bg-light: #f5f5f5;
+  --button-bg-dark: #2c2c2c;
+  --button-hover-light: #e0e0e0;
+  --button-hover-dark: #3a3a3a;
+  --border-light: #dcdcdc;
+  --border-dark: #444;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif; /* Fallback font, 'Inter' is primary via HTML */
+  transition: background-color 0.3s, color 0.3s;
+  /* Specific body styles for premium look are now in popup.html inline <style> */
+}
+
+/* Base popup-container styles are now primarily in popup.html inline <style> */
+.popup-container {
+  /* Most styles moved to inline style in popup.html for direct control and premium feel */
+  /* Keeping minimum for safety, though inline styles should take precedence */
+  padding: 16px;
+  width: 240px;
+  border-radius: 12px;
+}
+
+/* Header, title, gear-icon styles also moved to popup.html inline <style> */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.gear-icon {
+  text-decoration: none;
+  color: inherit;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Menu is now a wrapper for dynamic content, so its display should be handled by JS */
+/* The .menu class seems to be unused after the last popup.html update.
+   The main content container is now #viewContentContainer.
+   This rule can likely be removed or kept minimal if it's not hurting anything.
+*/
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Default gap for general content sections */
+}
+
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+  }
+
+  .popup-container {
+    background-color: var(--bg-light);
+  }
+
+  button {
+    background-color: var(--button-bg-light);
+    color: var(--text-light);
+    border: 1px solid var(--border-light);
+  }
+
+  button:hover {
+    background-color: var(--button-hover-light);
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+  }
+
+  .popup-container {
+    background-color: var(--bg-dark);
+  }
+
+  button {
+    background-color: var(--button-bg-dark);
+    color: var(--text-dark);
+    border: 1px solid var(--border-dark);
+  }
+
+  button:hover {
+    background-color: var(--button-hover-dark);
+  }
+
+  .gear-icon {
+    color: var(--text-dark); /* Ensure gear icon adapts to dark mode */
+  }
+}
+
+/* General button styles for the entire popup, overridden by specific view styles where needed */
+button {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%; /* Default to full width for general buttons */
+  text-align: center; /* Center text for general buttons */
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border: 1px solid transparent;
+}

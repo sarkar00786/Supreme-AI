@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css" />
+  <link rel="stylesheet" href="family=Material+Icon.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Ensure Inter font is used and enhance body for premium look */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      /* Default to a deep, sophisticated dark theme for premium feel */
+      background-color: #0f172a; /* Slate 900 */
+      color: #e2e8f0; /* Slate 200 */
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Override popup.css .popup-container for the new premium design */
+    .popup-container {
+      padding: 1.75rem; /* Increased padding for more breathing room */
+      width: 320px; /* Wider for better content display */
+      border-radius: 1.25rem; /* Even more rounded corners */
+      background: linear-gradient(145deg, #1a202c, #2d3748); /* Gradient for depth */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2); /* Softer, deeper shadow */
+      color: #e2e8f0; /* Light text for contrast */
+    }
+
+    /* Styles for the header and navigation, following a clean, modern aesthetic */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem; /* More space */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+      padding-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 1.5rem; /* Larger title */
+      font-weight: 700; /* Bolder */
+      color: #90cdf4; /* Light blue accent */
+    }
+
+    .gear-icon {
+      color: #cbd5e0; /* Lighter gray for icons */
+      font-size: 1.75rem; /* Larger icon */
+      transition: color 0.2s ease-in-out;
+    }
+
+    .gear-icon:hover {
+      color: #63b3ed; /* Brighter blue on hover */
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-around;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-button {
+      flex-grow: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem; /* Softer buttons */
+      background-color: #2d3748; /* Darker button background */
+      color: #a0aec0; /* Lighter text for buttons */
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border */
+      transition: all 0.2s ease-in-out;
+      text-align: center;
+    }
+
+    .nav-button.active {
+      background-color: #63b3ed; /* Accent blue for active button */
+      color: #1a202c; /* Dark text on active button */
+      box-shadow: 0 4px 10px rgba(99, 179, 237, 0.3); /* Glow for active */
+      border-color: #63b3ed;
+    }
+
+    .nav-button:hover:not(.active) {
+      background-color: #4a5568; /* Hover effect for inactive buttons */
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .view-content {
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Specific Dashboard View styles */
+    #dashboardView {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .status-section {
+      background-color: #2d3748;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    .status-icon {
+      color: #90cdf4;
+      font-size: 1.5rem;
+    }
+
+    /* Global button styles for premium look */
+    button {
+      background-color: #63b3ed;
+      color: #1a202c;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #4299e1;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    button:disabled {
+      background-color: #4a5568;
+      color: #a0aec0;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    /* Settings View styles */
+    #settingsView {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2d3748;
+      padding: 0.8rem 1rem;
+      border-radius: 0.75rem;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    .setting-item label {
+      cursor: pointer;
+    }
+
+    .setting-item input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #90cdf4;
+      border-radius: 5px;
+      position: relative;
+      cursor: pointer;
+      background-color: #1a202c;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .setting-item input[type="checkbox"]:checked {
+      background-color: #90cdf4;
+      border-color: #90cdf4;
+    }
+
+    .setting-item input[type="checkbox"]:checked::after {
+      content: '✔';
+      color: #1a202c;
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .auth-section {
+      background-color: #2d3748;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .auth-section input {
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: #1a202c;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    .auth-section input::placeholder {
+      color: #a0aec0;
+    }
+
+    .auth-section button {
+      width: fit-content;
+      align-self: flex-end;
+    }
+
+    /* Chat Behavior Setting */
+    .chat-behavior-setting {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        background-color: #2d3748;
+        padding: 0.8rem 1rem;
+        border-radius: 0.75rem;
+        color: #e2e8f0;
+    }
+
+    .chat-behavior-setting label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    .chat-behavior-setting input[type="radio"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #90cdf4;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        background-color: #1a202c;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .chat-behavior-setting input[type="radio"]:checked {
+        background-color: #90cdf4;
+        border-color: #90cdf4;
+    }
+
+    .chat-behavior-setting input[type="radio"]:checked::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background-color: #1a202c;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Removed all specific payment section styles */
+    /* If you implement a payment gateway, its UI would be defined here */
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <h1 class="title">Aura AI</h1>
+      <a href="options.html" target="_blank" class="gear-icon material-icons">settings</a>
+    </div>
+
+    <div class="nav-buttons">
+      <button id="mainViewButton" class="nav-button active">Dashboard</button>
+      <button id="settingsViewButton" class="nav-button">Settings</button>
+    </div>
+
+    <div id="viewContentContainer">
+      <!-- Content for different views will be rendered here by JavaScript -->
+    </div>
+  </div>
+  <script type="module" src="scripts/popup.js"></script>
+</body>
+</html>
