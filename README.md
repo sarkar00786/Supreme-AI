@@ -63,4 +63,4 @@ Supreme AI is community-first. Feel free to open issues, PRs, or suggestions.
 
 ## 📜 License
 
-MIT — Free to use, modify, and redistribute. Fully owned by **[Your Name]**.
+MIT — Free to use, modify, and redistribute. Fully owned by **Jhangir Hussain**.
